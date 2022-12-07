@@ -141,6 +141,93 @@ getCSS.onclick = function () {
 
   request.send();
 };
+
+getJS.onclick = function () {
+  var request = new XMLHttpRequest();
+  request.open("GET", "/2.js");
+
+  request.onreadystatechange = function () {
+    if (readyState === 4) {
+      if (200 <= request.status < 300) {
+        var script = document.createElement("script");
+        script.innerHTML = request.response;
+        document.body.appendChild(script);
+      } else {
+        alert("加载JS 失败");
+      }
+    }
+  };
+
+  request.send();
+};
+
+getHTML.onclick = function () {
+  var request = new XMLHttpRequest();
+  request.open("GET", "/3.html"); //向服务器发请求路径
+
+  request.onreadystatechange = function () {
+    if (readyState === 4) {
+      if (200 <= request.status < 300) {
+        var div = document.createElement("div");
+        div.innerHTML = request.response;
+        document.body.appendChild(div);
+      }
+    }
+  };
+
+  request.send();
+};
+
+getXML.onclick = function () {
+  var request = new XMLHttpRequest();
+  request.open("GET", "/4.xml");
+
+  request.onreadystatechange = function () {
+    if (request.readyState === 4 && request.status === 200) {
+      var dom = request.responseXML;
+      var text = dom.getElementsByTagName("warning")[0].textContent;
+      console.log(text.trim());
+    }
+  };
+
+  request.send();
+};
+
+getJSON.onclick = function () {
+  var request = new XMLHttpRequest();
+  request.open("GET", "/5.json");
+
+  request.onreadystatechange = function () {
+    if (request.readyState === 4 && request.status === 200) {
+      var bool = JSON.parse(request.response); //将符合JSON语法的字符串转换成JS对应类型的数据
+
+      console.log(bool);
+    }
+  };
+
+  request.send();
+};
+
+var n = 1;
+
+getPage.onclick = function () {
+  var request = new XMLHttpRequest();
+  request.open("GET", "/page".concat(n + 1));
+
+  request.onreadystatechange = function () {
+    if (request.readyState === 4 && request.status === 200) {
+      var array = JSON.parse(request.response);
+      array.forEach(function (item) {
+        var li = document.createElement("li");
+        li.textContent = item.id;
+        xxx.appendChild(li);
+      });
+      n += 1;
+    }
+  };
+
+  request.send();
+};
 },{}],"C:/Users/nini/AppData/Roaming/npm/node_modules/parcel/src/builtins/hmr-runtime.js":[function(require,module,exports) {
 var global = arguments[3];
 var OVERLAY_ID = '__parcel__error__overlay__';
@@ -169,7 +256,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "59801" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "65031" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};

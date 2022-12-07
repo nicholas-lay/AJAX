@@ -29,12 +29,13 @@ var server = http.createServer(function (request, response) {
         const array = JSON.parse(page1)
         const result = array.map(item => `<li>${item.id}</li>`).join('')
         string = string.replace('{{page1}}', `<ul id="xxx">${result}</ul>`)
-        response.write(string)
+        response.write(string)  //返回给浏览器渲染的内容
         response.end()
     } else if (path === '/main.js') {
         response.statusCode = 200
         response.setHeader('Content-Type', 'text/javascript;charset=utf-8')
-        response.write(fs.readFileSync('public/main.js'))
+        response.write(fs.readFileSync('public/main.js'))//括号内容应为一个字符串，
+        //使用fs.readFileSync转换为字符串
         response.end()
     } else if (path === '/style.css' || path === '/2.css') {
         response.statusCode = 200
@@ -47,6 +48,7 @@ var server = http.createServer(function (request, response) {
         response.write(fs.readFileSync('public/2.js'))
         response.end()
     } else if (path === '/3.html') {
+        a
         response.statusCode = 200
         response.setHeader('Content-Type', 'text/html;charset=utf-8')
         response.write(fs.readFileSync('public/3.html'))
